@@ -1,0 +1,73 @@
+
+import Link from "next/link";
+
+export const metadata = {
+  title: "Products | ShopNext",
+  description: "Explore our latest products at ShopNext.",
+};
+
+const products = [
+  {
+    id: 1,
+    name: "Laptop",
+    price: 45000,
+    description: "High-performance laptop for work and study.",
+    emoji: "💻",
+  },
+  {
+    id: 2,
+    name: "Smartphone",
+    price: 20000,
+    description: "Modern smartphone with amazing features.",
+    emoji: "📱",
+  },
+  {
+    id: 3,
+    name: "Headphones",
+    price: 2500,
+    description: "Enjoy high-quality music and sound.",
+    emoji: "🎧",
+  },
+  {
+    id: 4,
+    name: "Smart Watch",
+    price: 3500,
+    description: "Track your daily activities.",
+    emoji: "⌚",
+  },
+];
+
+async function getProducts() {
+  return products;
+}
+
+export default async function ProductsPage() {
+  const data = await getProducts();
+
+  return (
+    <main className="products-page">
+      <h1>Our Products</h1>
+      <p>Explore our latest collection.</p>
+
+      <div className="product-grid">
+        {data.map((product) => (
+          <div className="product-card" key={product.id}>
+            <div className="product-emoji">
+              {product.emoji}
+            </div>
+
+            <h2>{product.name}</h2>
+
+            <p>{product.description}</p>
+
+            <h3>₹{product.price.toLocaleString("en-IN")}</h3>
+
+            <Link href={`/products/${product.id}`}>
+              View Details
+            </Link>
+          </div>
+        ))}
+      </div>
+    </main>
+  );
+}
